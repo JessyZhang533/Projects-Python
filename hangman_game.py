@@ -40,16 +40,17 @@ def process_input_and_display(user_input, num_of_guesses):
                 display_result = display_result[:i] + user_input + display_result[(i+1):]
                 num_of_remaining_letters -= 1
                 if num_of_remaining_letters == 0:
-                    return " You win! "
-    elif num_of_guesses == 7:
+                    return "You win!"
+    if num_of_guesses == 7:
         return "You lose!"
     return "Status: {}".format(display_result)
 
 
 # Main body of the game
 while num_of_guesses < 7:
-    user_input = get_input()[0]
-    print(get_input()[1])
-    print(process_input_and_display(user_input, get_input()[1]))
-    if process_input_and_display(user_input, get_input()[1])[0] == "You lose!" or process_input_and_display(user_input, get_input()[1]) == "You win!":
+    user_input, number = get_input()
+    print(user_input)
+    status_now = process_input_and_display(user_input, number)
+    print(status_now)
+    if status_now == "You lose!" or status_now == "You win!":
         break
