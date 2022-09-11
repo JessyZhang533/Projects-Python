@@ -2,13 +2,15 @@
 # 1.Importing, innitialising and hiding windows
 # 2. 'simpledialog.askstring(title, prompt)' replaces '.input()'
 # 3. 'messagebox.showinfo()' replaces 'print()'
+# 4. 'from ... import *' not supported https://www.flake8rules.com/rules/F403.html
+# 5. '.mainloop()' see line31
 from tkinter import Tk
 from tkinter import simpledialog, messagebox
 
 from random import randint
 
 
-main = Tk()  # Initialise/Create an instance
+main = Tk()  # Initialise/Create an instance of window
 main.withdraw()  # Hide the window
 
 
@@ -26,4 +28,4 @@ while True:
     else:
         messagebox.showinfo("Wrong number. Try again.")  # Replace print
 
-main.mainloop()
+main.mainloop()  # Run the tkinter event loop (listens to events such as keypresses and buttonclicks)
