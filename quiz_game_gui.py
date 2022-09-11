@@ -19,4 +19,4 @@ for i in range(len(questions)):
     else:
         messagebox.showinfo("Wrong answer. The correct answer is {}.".format(key[i]))
 
-messagebox.showinfo("Your final score", str(score))  # convert the score (int) to a string
+messagebox.showinfo("Your final score", str(score))  # Convert the score (int) to a string. Otherwise would display nothing if score = 0
