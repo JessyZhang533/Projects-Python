@@ -1,2 +1,2 @@
 # Projects-Python
- Projects for practice
+ Make small games with Python; learn Tkinter
