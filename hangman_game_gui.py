@@ -38,7 +38,7 @@ def get_input():
     global num_of_guesses
     " Get the input from user and check if it is ONE LETTER; return the letter and increase number of guesses by 1 "
     while True:
-        user_input = simpledialog.askstring("Hangman", " Please guess one letter: ")
+        user_input = simpledialog.askstring("Hangman", " Please guess one letter: ").lower()  # Need to make the game case insensitive
         if user_input not in 'abcdefghijklmnopqrstuvwxyz':
             messagebox.showinfo("Hangman", " Please enter ONE LETTER. ")
         else:
