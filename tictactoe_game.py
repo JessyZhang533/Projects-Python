@@ -2,6 +2,7 @@
 # 1.f"blablablabla, {...}, blabla. {...}.":f-string formatting
 # 2.Can use several '==' in a row to form a condition
 # 3.exit(): exit a program; used as an interpreter
+# 4.try/except block: check if a line of code will raise an error; if yes, will not exit the program
 
 board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
 
@@ -17,14 +18,21 @@ def get_input_from_player():
     return player_input
 
 
+def can_convert(string):
+    " Check if can convert player_input to an integer "
+    try:
+        int(string)
+        return True
+    except ValueError:
+        return False
+
+
 def player_move(player_input, player_letter):
     " Associate the input from the player to a change on the board "
+    while can_convert(player_input) is False or int(player_input) < 1 or int(player_input) > 9:
+        player_input = get_input_from_player()
     player_input = int(player_input)
-    if player_input < 1 or player_input > 9:
-        player_input = int(get_input_from_player())
-        player_move(player_input, player_letter=player_letter)
-    else:
-        board[player_input - 1] = player_letter
+    board[player_input - 1] = player_letter
 
 
 def get_status(board, letter):
@@ -42,6 +50,11 @@ def get_status(board, letter):
         print("It's a tie!")
     else:
         pass
+
+
+def computer_move(board, letter):
+    " Program a move of the computer "
+
 
 
 while True:
