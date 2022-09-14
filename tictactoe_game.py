@@ -3,8 +3,28 @@
 # 2.Can use several '==' in a row to form a condition
 # 3.exit(): exit a program; used as an interpreter
 # 4.try/except block: check if a line of code will raise an error; if yes, will not exit the program
+# 5.random.choice(...): choose one random item from a list, tuple, etc.
+
+import random
+
 
 board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
+player_letter = None
+computer_letter = None
+
+
+def assign_letter(initial_input):
+    global player_letter, computer_letter
+    " Assign the correct letters to the player and computer "
+    if initial_input == 'y':
+        player_letter = 'X'
+        computer_letter = 'O'
+    elif initial_input == 'n':
+        player_letter = 'O'
+        computer_letter = 'X'
+    else:
+        initial_input = input("Do you want to go first? (y-you are 'X'; n-you are 'O')")
+        assign_letter(initial_input)
 
 
 def display_board():
@@ -29,7 +49,7 @@ def can_convert(string):
 
 def player_move(player_input, player_letter):
     " Associate the input from the player to a change on the board "
-    while can_convert(player_input) is False or int(player_input) < 1 or int(player_input) > 9:
+    while can_convert(player_input) is False or int(player_input) < 1 or int(player_input) > 9 or board[int(player_input) - 1] != '_':
         player_input = get_input_from_player()
     player_input = int(player_input)
     board[player_input - 1] = player_letter
@@ -38,27 +58,46 @@ def player_move(player_input, player_letter):
 def get_status(board, letter):
     " Check if anyone wins or if it's a tie "
     if (board[0] == board[1] == board[2] == letter) or (board[3] == board[4] == board[5] == letter) or (board[6] == board[7] == board[8] == letter):  # 3 in a row
+        display_board()
         print(f"{letter} wins!")
         exit()
     elif (board[0] == board[3] == board[6] == letter) or (board[1] == board[4] == board[7] == letter) or (board[2] == board[5] == board[8] == letter):  # 3 in a column
+        display_board()
         print(f"{letter} wins!")
         exit()
     elif (board[0] == board[4] == board[8] == letter) or (board[2] == board[4] == board[6] == letter):  # 3 in a diagonal
+        display_board()
         print(f"{letter} wins!")
         exit()
     elif '_' not in board:
+        display_board()
         print("It's a tie!")
     else:
-        pass
+        display_board()
 
 
 def computer_move(board, letter):
-    " Program a move of the computer "
-
+    " Get a move of the computer(random) "
+    move_index = random.randint(1, 9)
+    while board[move_index - 1] != '_':
+        computer_move(board, letter=letter)
+    board[move_index - 1] = letter
 
 
 while True:
-    player_input = get_input_from_player()
-    player_move(player_input, 'X')
-    display_board()
-    get_status(board, 'X')
+    initial_input = input("Do you want to go first? (y-you are 'X'; n-you are 'O')")
+    assign_letter(initial_input)
+    if player_letter == 'X':
+        while True:
+            player_input = get_input_from_player()
+            player_move(player_input, player_letter)
+            get_status(board, player_letter)
+            computer_move(board, computer_letter)
+            get_status(board, computer_letter)
+    else:
+        while True:
+            computer_move(board, computer_letter)
+            get_status(board, computer_letter)
+            player_input = get_input_from_player()
+            player_move(player_input, player_letter)
+            get_status(board, player_letter)
