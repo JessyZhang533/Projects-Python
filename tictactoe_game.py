@@ -56,32 +56,38 @@ def player_move(player_input, player_letter):
 
 
 def get_status(board, letter):
+    global computer_letter
     " Check if anyone wins or if it's a tie "
     if (board[0] == board[1] == board[2] == letter) or (board[3] == board[4] == board[5] == letter) or (board[6] == board[7] == board[8] == letter):  # 3 in a row
-        display_board()
+        if letter == computer_letter:
+            display_board()
         print(f"{letter} wins!")
         exit()
     elif (board[0] == board[3] == board[6] == letter) or (board[1] == board[4] == board[7] == letter) or (board[2] == board[5] == board[8] == letter):  # 3 in a column
-        display_board()
+        if letter == computer_letter:
+            display_board()
         print(f"{letter} wins!")
         exit()
     elif (board[0] == board[4] == board[8] == letter) or (board[2] == board[4] == board[6] == letter):  # 3 in a diagonal
-        display_board()
+        if letter == computer_letter:
+            display_board()
         print(f"{letter} wins!")
         exit()
     elif '_' not in board:
         display_board()
         print("It's a tie!")
     else:
-        display_board()
+        if letter == computer_letter:
+            display_board()
 
 
 def computer_move(board, letter):
     " Get a move of the computer(random) "
     move_index = random.randint(1, 9)
-    while board[move_index - 1] != '_':
+    if board[move_index - 1] != '_':
         computer_move(board, letter=letter)
-    board[move_index - 1] = letter
+    else:
+        board[move_index - 1] = letter
 
 
 while True:
