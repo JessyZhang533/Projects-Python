@@ -11,12 +11,10 @@ main = Tk()
 main.geometry("250x250")
 main.title("Tic Tac Toe")
 
-field = [' ', ' ', ' ',
-          ' ', ' ', ' ',
-          ' ', ' ', ' ']
+field = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
 current_player = 1
-buttons = []
+buttons = []  # Every item put in will be a Button object
 
 
 def btn_click(x):
@@ -25,13 +23,14 @@ def btn_click(x):
     global field
 
     if current_player == 1:
-        buttons[x]["text"] = 'x'
+        buttons[x]["text"] = 'x'  # "text" of teh Button object change upon clicking
         field[x] = 'x'
-        current_player = 0
+        current_player = 0  # switch player
     else:
         buttons[x]["text"] = 'o'
         field[x] = 'o'
         current_player = 1
+    print(buttons)
     check(field)
 
 
@@ -49,7 +48,7 @@ for x in range(0, 3):
 frame.pack(fill="both")
 
 
-def endgame(field, player):
+def endgame(player):
     messagebox.showinfo("Winner", player + " wins")
     exit()
 
@@ -59,21 +58,21 @@ def check(field):
 
     for player in players:
         if field[0] == player and field[1] == player and field[2] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[3] == player and field[4] == player and field[5] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[6] == player and field[7] == player and field[8] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[0] == player and field[3] == player and field[6] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[1] == player and field[4] == player and field[7] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[2] == player and field[5] == player and field[8] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[0] == player and field[4] == player and field[8] == player:
-            endgame(field, player)
+            endgame(player)
         elif field[2] == player and field[4] == player and field[6] == player:
-            endgame(field, player)
+            endgame(player)
 
 
 main.mainloop()
