@@ -87,7 +87,7 @@ def computer_move(board, letter):
     " Get a move of the computer (random) "
     move_index = random.randint(1, 9)
     if board[move_index - 1] != '_':
-        computer_move(board, letter=letter)
+        computer_move(board, letter=letter)  # No need to use while loop when recursion already exists. So here we use if statement
     else:
         board[move_index - 1] = letter
 
