@@ -11,6 +11,7 @@ import random
 board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
 player_letter = None
 computer_letter = None
+game_is_done = False
 
 
 def assign_letter(initial_input):
@@ -56,25 +57,26 @@ def player_move(player_input, player_letter):
 
 
 def get_status(board, letter):
-    global computer_letter
+    global computer_letter, game_is_done
     " Check if anyone wins or if it's a tie "
     if (board[0] == board[1] == board[2] == letter) or (board[3] == board[4] == board[5] == letter) or (board[6] == board[7] == board[8] == letter):  # 3 in a row
-        if letter == computer_letter:
+        if letter == computer_letter:  # Only display board after the computer makes a move
             display_board()
         print(f"{letter} wins!")
-        exit()
+        game_is_done = True
     elif (board[0] == board[3] == board[6] == letter) or (board[1] == board[4] == board[7] == letter) or (board[2] == board[5] == board[8] == letter):  # 3 in a column
         if letter == computer_letter:
             display_board()
         print(f"{letter} wins!")
-        exit()
+        game_is_done = True
     elif (board[0] == board[4] == board[8] == letter) or (board[2] == board[4] == board[6] == letter):  # 3 in a diagonal
         if letter == computer_letter:
             display_board()
         print(f"{letter} wins!")
-        exit()
+        game_is_done = True
     elif '_' not in board:
         display_board()
+        game_is_done = True
         print("It's a tie!")
     else:
         if letter == computer_letter:
@@ -82,7 +84,7 @@ def get_status(board, letter):
 
 
 def computer_move(board, letter):
-    " Get a move of the computer(random) "
+    " Get a move of the computer (random) "
     move_index = random.randint(1, 9)
     if board[move_index - 1] != '_':
         computer_move(board, letter=letter)
@@ -98,12 +100,30 @@ while True:
             player_input = get_input_from_player()
             player_move(player_input, player_letter)
             get_status(board, player_letter)
+            if game_is_done is True:
+                break
             computer_move(board, computer_letter)
             get_status(board, computer_letter)
+            if game_is_done is True:
+                break
     else:
         while True:
             computer_move(board, computer_letter)
             get_status(board, computer_letter)
+            if game_is_done is True:
+                break
             player_input = get_input_from_player()
             player_move(player_input, player_letter)
             get_status(board, player_letter)
+            if game_is_done is True:
+                break
+
+    if game_is_done is True:
+        user_choice = input("Do you want to play again? enter y or n")
+        if user_choice == 'y':
+            board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
+            player_letter = None
+            computer_letter = None
+            game_is_done = False
+        else:
+            break
