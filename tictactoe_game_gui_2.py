@@ -1,10 +1,16 @@
 import random
+from tkinter import Tk, simpledialog, messagebox
 
 
 board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
 player_letter = None
 computer_letter = None
 game_is_done = False
+
+main = Tk()
+main.title('TicTacToe')
+main.geometry('800x600')
+main.withdraw()
 
 
 def assign_letter(initial_input):
@@ -17,18 +23,18 @@ def assign_letter(initial_input):
         player_letter = 'O'
         computer_letter = 'X'
     else:
-        initial_input = input("Do you want to go first? (y-you are 'X'; n-you are 'O')")
+        initial_input = simpledialog.askstring("TicTacToe", "Do you want to go first? (y-you are 'X'; n-you are 'O')")
         assign_letter(initial_input)
 
 
 def display_board():
     " Display the game board to the player "
-    print(f"{board[0]} {board[1]} {board[2]}\n{board[3]} {board[4]} {board[5]}\n{board[6]} {board[7]} {board[8]}")
+    messagebox.showinfo("TicTacToe", f"{board[0]} {board[1]} {board[2]}\n{board[3]} {board[4]} {board[5]}\n{board[6]} {board[7]} {board[8]}")
 
 
 def get_input_from_player():
     " Get input from player(human) "
-    player_input = input("Where to place your next move? (1-9)")
+    player_input = simpledialog.askstring("TicTacToe", "Where to place your next move? (1-9)")
     return player_input
 
 
@@ -55,22 +61,22 @@ def get_status(board, letter):
     if (board[0] == board[1] == board[2] == letter) or (board[3] == board[4] == board[5] == letter) or (board[6] == board[7] == board[8] == letter):  # 3 in a row
         if letter == computer_letter:  # Only display board after the computer makes a move
             display_board()
-        print(f"{letter} wins!")
+        messagebox.showinfo("TicTacToe", f"{letter} wins!")
         game_is_done = True
     elif (board[0] == board[3] == board[6] == letter) or (board[1] == board[4] == board[7] == letter) or (board[2] == board[5] == board[8] == letter):  # 3 in a column
         if letter == computer_letter:
             display_board()
-        print(f"{letter} wins!")
+        messagebox.showinfo("TicTacToe", f"{letter} wins!")
         game_is_done = True
     elif (board[0] == board[4] == board[8] == letter) or (board[2] == board[4] == board[6] == letter):  # 3 in a diagonal
         if letter == computer_letter:
             display_board()
-        print(f"{letter} wins!")
+        messagebox.showinfo("TicTacToe", f"{letter} wins!")
         game_is_done = True
     elif '_' not in board:
         display_board()
         game_is_done = True
-        print("It's a tie!")
+        messagebox.showinfo("TicTacToe", "It's a tie!")
     else:
         if letter == computer_letter:
             display_board()
@@ -86,7 +92,7 @@ def computer_move(board, letter):
 
 
 while True:
-    initial_input = input("Do you want to go first? (y-you are 'X'; n-you are 'O')")
+    initial_input = simpledialog.askstring("TicTacToe", "Do you want to go first? (y-you are 'X'; n-you are 'O')")
     assign_letter(initial_input)
     if player_letter == 'X':
         while True:
@@ -112,7 +118,7 @@ while True:
                 break
     # Check if user wants to play again
     if game_is_done is True:
-        user_choice = input("Do you want to play again? enter y or n")
+        user_choice = simpledialog.askstring("TicTacToe", "Do you want to play again? enter y or n")
         if user_choice == 'y':
             board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
             player_letter = None
